@@ -18,3 +18,7 @@ An empty example, which I copy for new repsoitories
 **(2) HelloWorldP5**
 
 Simple "Hello, World" example, refered to in the video tutorial
+
+**(3) Simple Shapes**
+
+Draw simple shapes in p5js
