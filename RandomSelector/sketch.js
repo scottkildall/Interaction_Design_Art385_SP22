@@ -10,15 +10,17 @@
     
 */
 
-var names = ["Matt", "Kiana", "Ty"];
+// All of our arrays
+var names = ["Sarah", "Kaila", "Hannah", "Ty", "Mitch", "Matt", "Morgan", "Jennifer", "Mindy", "Monique", "Luis", "Kianna", "Savannah"];
 var x = [];
 var y = [];
+var selected = [];    // true or false
 
+// Selection-related global variables
+var numChosen = 0;
 var rouletteOn = false;
 var rouletteCounter = 0;
 var rouletteMax = 90;
-var numChosen = 0;
-
 
 // Setup code goes here
 function setup() {
@@ -41,9 +43,14 @@ function draw() {
 function drawNames() {
   textSize(20);
 
-  fill(255);
+ 
   for( let i = 0; i < names.length; i++ ) {
-    //console.log("x = " + x[i]);
+    fill(255);      // white is non-selected
+    if( selected[i] ) {
+      // gray has already been selected
+      fill(128)
+    }
+
     text( names[i], x[i], y[i]);
   }
 }
@@ -62,9 +69,13 @@ function keyPressed() {
 function initializeArrays() {
   doRandomSeed();
 
+  // initialize x and y arrays to random (x,y) values
+  // initialize selected array to false
+  // these 3 arrays will match the length of the names array
   for( let i = 0; i < names.length; i++ ) {
     x.push(random(100,width-100));
     y.push(random(100,height-100));
+    selected.push(false);
   }
 }
 
