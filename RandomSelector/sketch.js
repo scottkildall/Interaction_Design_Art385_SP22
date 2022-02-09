@@ -20,7 +20,10 @@ var selected = [];    // true or false
 var numChosen = 0;
 var rouletteOn = false;
 var rouletteCounter = 0;
-var rouletteMax = 90;
+var rouletteThreshold = 4;
+var rouletteMax = 30;
+var selectedIndex = 0;
+var lastSelected = -1;
 
 // Setup code goes here
 function setup() {
@@ -43,12 +46,36 @@ function draw() {
 function drawNames() {
   textSize(20);
 
- 
+  if( rouletteOn ) {
+    if(rouletteCounter >= rouletteThreshold  ) {
+      selectNext();
+    }
+
+    rouletteCounter++;
+    if( rouletteCounter > rouletteMax ) {
+      // we are done, make as current selection and as selected
+      lastSelected = selectedIndex;
+      selected[selectedIndex] = true;   
+      rouletteOn = false;
+    }
+  }
+
   for( let i = 0; i < names.length; i++ ) {
-    fill(255);      // white is non-selected
-    if( selected[i] ) {
-      // gray has already been selected
+    // deafault is unselected (white)
+    fill(255);      
+    
+    // current selection (orange)
+    if( rouletteOn && selectedIndex === i ) {
+      fill(240,120,0);
+    }
+
+    // has already been selected (gray out)
+    else if( selected[i] ) {
       fill(128)
+    }
+
+    if( lastSelected === i ) {
+      fill(250,60,0);
     }
 
     text( names[i], x[i], y[i]);
@@ -58,7 +85,8 @@ function drawNames() {
 function keyPressed() {
   if( key === ' ' ) {
     if( rouletteOn === false ) {
-      rouletteMax = 90 + random(10,100);
+      lastSelected = -1;      // turn off last selected
+      rouletteThreshold = 4;
       rouletteCounter = 0;
       rouletteOn = true;
     }
@@ -68,6 +96,8 @@ function keyPressed() {
 
 function initializeArrays() {
   doRandomSeed();
+
+  names = shuffle(names);   // this will be the selection order, extra randomness
 
   // initialize x and y arrays to random (x,y) values
   // initialize selected array to false
@@ -86,159 +116,36 @@ function doRandomSeed() {
   randomSeed(time);
 }
 
-
-
-
-// //-- array of names, change numNames and addName() below if students are absent
-// int numStudents = 16;      // array sizes
-// int numNames = 0;              // number actually added
-// DisplayName [] names;
-// boolean [] bSelected;
-
-// int rouletteNameIndex = -1;      // set to -1 if we are not using
-
-// // array-shuffling
-// IntList connections;
-
-
-  
-// void setup() {
- 
-//   // create your fonts
-//   bigFont = createFont("Helvetica",36,true); 
-//   smallFont = createFont("Helvetica",24,true); 
-  
-//   textFont(bigFont);
-  
-//   connections = new IntList();
-//   initializeNames();
-  
-//   //-- this shuffles our array, for the randomizer
-//   connections.shuffle();
-// }
-
-
-// void draw() {
-//   // background for the screen, 0-255 grayscale or an (r,g,b) color
-//   background(0);
-  
-//   // font and fill color
-//   textFont(smallFont);       
-
-//   // draw all names in white, check for roulette wheel
-  
-//   for( int i = 0; i < numNames; i++ ) {
-//     // unselected, draw in white
-//     if( i != rouletteNameIndex ) {
-//       textFont(smallFont);
+// go through array, if any one is false, return false, otherwise all must be selected
+function areAllSelected() {
+  for( let i = 0; i < names.length; i++ ) {
+    if( selected[i] === false ) {
+      return false;
+    }
+  }
       
-//       // unselected = white, selected = gray
-//       if( bSelected[connections.get(i)] )
-//          fill(100);
-//       else
-//         fill(255);
-      
-//       names[connections.get(i)].draw();
-//     }
-      
-//     // is current selection, draw in white
-//     else {
-//       textFont(bigFont); 
-//       fill(240,120,0);
-//       names[connections.get(rouletteNameIndex)].draw();
-//     }  
-//   }
-  
-//   //-- spin roulette wheel
-//   if( bRouletteOn == true ) {
-//     nextRouletteName();
-    
-//     delay(delayTime);
-    
-//     // add some randomness here
-//     delayTime = delayTime + (int)random(10,12);
-//     if( delayTime > random(350,400) ) {
-//       bRouletteOn = false;
-//     }
-//   }
-// }
+  return true;
+}
 
-// // SPACEBAR turns on the roulette wheel
-// void keyPressed() {
-//   if( key == ' ' ) {
-//     if( bRouletteOn == false ) {
-//       delayTime = 100;
-//       bRouletteOn = true;
-//       println("turning on roulette");
-      
-//       if( rouletteNameIndex != -1 ) {
-//          bSelected[connections.get(rouletteNameIndex)] = true; 
-//       }
-//     } 
-//   }
-// }
+// moves global selectedIndex variable to the next one
+function selectNext() {
+  if( areAllSelected() ) {
+    return -1;    // out of bounds (error)
+  }
+  
+  // go to next, skip while we are selected
+  selectedIndex++;
+  if( selectedIndex === names.length ) {
+    selectedIndex = 0;
+  }  
 
-// //-- go through all students in list, comment out if people aren't here
-// //-- also set array of bSelected to false
-// //-- note: there is a better way!
-// void initializeNames() {
-//   names = new DisplayName[numStudents];
-//   bSelected = new boolean[numStudents];
-    
-//   addName("Alvin");
-//   addName("Ashley");
-//   addName("DJ");
-//   addName("Graham");
-//   addName("Jake");
-//   addName("Jeffrey");
-//   addName("Journ");
-//   addName("Juliet");
-//   addName("Kara");
-//   addName("Lauren");
-//   addName("My");
-//   addName("Natalie");
-//   addName("Reilly");
-//   addName("Taylor");
-//   addName("Toff");
-//   addName("Tommy");
-// }
+  while( selected[selectedIndex] === true ) {
+    selectedIndex++;
+    if( selectedIndex === names.length ) {
+      selectedIndex = 0;
+    }  
+  }
 
-// void addName(String s) {
-//   // for the connections, a shuffled list
-//   connections.append(numNames);
-  
-//   names[numNames] = new DisplayName(s);
-//   bSelected[numNames] = false;
-  
-//   numNames++;
-// }
-
-// void nextRouletteName() {
-//   if( areAllSelected() ) {
-//     bRouletteOn = false;
-//     rouletteNameIndex = -1;
-//   }
-  
-//   rouletteNameIndex++;
-  
-//   if( rouletteNameIndex == numNames )
-//    rouletteNameIndex = 0;
-   
- 
-//   while( bSelected[connections.get(rouletteNameIndex)] == true ) {
-//     rouletteNameIndex++;
-//     if( rouletteNameIndex == numNames )
-//      rouletteNameIndex = 0;
-  
-//      println("skip"); 
-//   }
-// }
-
-// boolean areAllSelected() {
-//   for( int i = 0; i < numNames; i++ ) {
-//      if( bSelected[i] == false )
-//        return false;
-//   }
-  
-//   return true;
-// }
+  rouletteCounter = 0;
+  rouletteThreshold += random(2,4);
+}
