@@ -1,5 +1,5 @@
-## Art385_Spring2022
-#### by Scott Kildall
+# Art385_Spring2022
+## by Scott Kildall
 January, 2022
 
 
