@@ -27,8 +27,7 @@ function setup() {
 
 // Draw code goes here
 function draw() {
-  background(0);
-
+  drawBackground();
   drawImage();
   drawUI();
 }
@@ -71,6 +70,11 @@ function keyPressed() {
 }
 
 //==== MODIFY THIS CODE FOR UI =====/
+
+function drawBackground() {
+  background(0);
+}
+
 function drawImage() {
   if( moodImage !== undefined ) {
     image(moodImage, width/2, height/2);
