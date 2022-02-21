@@ -24,6 +24,7 @@ const cat1Index = 0;
 const cat2Index = 1;
 const cat3Index = 2;
 const cat4Index = 3;
+const nextIndex = 4;
 
 
 var xPos = 250;
@@ -47,8 +48,11 @@ function setup() {
   // that are not in the array 
   setupClickables(); 
 
+  //changeTextSettings(nextIndex);
+
   // output to the message window
   console.log(clickables);
+
 }
 
 // Just draw the button
@@ -70,6 +74,17 @@ function setupClickables() {
 
     clickables[i].drawImageOnly = false;
   }
+}
+
+// 4,Next,,"Next",300,475,yes
+
+// call for changing all text buttons
+function changeTextSettings(index) {
+  clickables[index].drawImageOnly = false;
+  clickables[index].textColor = "#981700";	//Color for the text shown
+	clickables[index].textSize = 16;		//Size for the text shown
+	clickables[index].textFont = "Georgia";	//Font for the text shown
+
 }
 
 //--- CLICKABLE CALLBACK FUNCTIONS ----
