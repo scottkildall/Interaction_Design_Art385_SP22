@@ -1,0 +1,5 @@
+ID,Name,PNGFilename,Text,x,y,visible
+0,Cat0,assets/cat.png,,100,25,yes
+1,Cat1,assets/cat.png,,100,175,yes
+2,Cat2,assets/cat.png,,100,325,yes
+3,Cat3,assets/cat.png,,100,475,yes
