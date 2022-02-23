@@ -25,25 +25,34 @@
 
 class ComplexStateMachine {
     // Clickable layout table is an OPTIONAL parameter
-    constructor(statesFilename) {
+    constructor(statesFilename, clickableLayoutFilename = null) {
         this.statesTable = loadTable(statesFilename, 'csv', 'header');
         this.currentState = 0;   
         this.stateNames = [];
         this.states = [];    
         this.stateNames = []; 
         this.setImageFilenameCallback = null;
-        this.setTransitionsCallback = null; 
+        this.clickableArray = null;
+
+        if( clickableLayoutFilename === null ) {
+            this.clickableTable = null;
+        }
+        else {
+            this.clickableTable = loadTable(clickableLayoutFilename, 'csv', 'header');
+        }
+
+        console.log(this.clickableTable);
     }
 
     // expects as .csv file with the format as outlined in the readme file
     // this will go through the states table and:
     // (1) add a new state for every unique state
     // (2) add a 
-    setup(imageFilenameCallback, transitionsArrayCallback) {
+    setup(clickableManager, imageFilenameCallback) {
         console.log(this.statesTable);
 
         this.setImageFilenameCallback = imageFilenameCallback;
-        this.setTransitionsCallback = transitionsArrayCallback;
+        this.clickableArray = clickableManager.getClickableArray();
 
         // For each row, allocate a new state, if it is unique
         // and always add a transition
@@ -61,10 +70,7 @@ class ComplexStateMachine {
                 this.stateNames.push(stateName);
                 this.states.push(new State(stateName, this.statesTable.getString(i, 'PNGFilename')));
                 stateArrayIndex = this.states.length - 1;
-            }
-            
-            this.states[stateArrayIndex].addTransition(this.statesTable.getString(i, 'TransitionText'), this.statesTable.getString(i, 'NewState'))
-            
+            } 
         }
         
         // All DONE
@@ -100,7 +106,6 @@ class ComplexStateMachine {
     performCallbacks() {
         // perform initial callbacks - if there is an invalid CSV, this will produce an error
         this.setImageFilenameCallback(this.states[this.currentState].imageFilename);
-        this.setTransitionsCallback(this.states[this.currentState ].transitions);
     }
 }
 
@@ -110,10 +115,5 @@ class State {
         this.imageFilename = imageFilename;
         this.transitions = [];
         this.nextStates = [];
-    }
-
-    addTransition(transitionText,nextState) {
-        this.transitions.push(transitionText);
-        this.nextStates.push(nextState);
     }
 }

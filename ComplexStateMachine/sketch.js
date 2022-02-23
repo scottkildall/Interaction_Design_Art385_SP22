@@ -15,14 +15,16 @@
 *********************************************************************************************************************/
 
 var complexStateMachine;           // the ComplexStateMachine class
-var selectedTransitionNum = 0;    // index into the array of transitions
-var transitions = [];
+var clickablesManager;             // our clickables manager
+var clickables;                    // an array of clickable objects
+
 var moodImage;
 
 var bkColor = '#031927';
 
 function preload() {
-  complexStateMachine = new ComplexStateMachine("assets/moodStates.csv");
+  clickablesManager = new ClickableManager('data/clickableLayout.csv');
+  complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
 }
 
 // Setup code goes here
@@ -30,8 +32,11 @@ function setup() {
   createCanvas(1280, 720);
   imageMode(CENTER);
 
+  // setup the clickables = this will allocate the array
+  clickables = clickablesManager.setup();
+
   // setup the state machine with callbacks
-  complexStateMachine.setup(setImage, setTransitionNames);
+  complexStateMachine.setup(clickablesManager, setImage);
  }
 
 
@@ -47,36 +52,11 @@ function setImage(imageFilename) {
   moodImage = loadImage(imageFilename);
 } 
 
-// this is a callback, which we use to diplay next state labels
-function setTransitionNames(transitionArray) {
-  transitions = transitionArray;
-}
+
 
 //==== KEYPRESSED ====/
 function keyPressed() {
-  // forward one, check for overflow
-  if (keyCode === RIGHT_ARROW) {
-    selectedTransitionNum++;
-    if( selectedTransitionNum === transitions.length ) {
-      selectedTransitionNum = 0;
-    }
-  }
-  
-  // back one, check for underflow
-  if (keyCode === LEFT_ARROW ) {
-    selectedTransitionNum--;
-    if( selectedTransitionNum === -1 ) {
-      selectedTransitionNum = transitions.length -1;
-      if( selectedTransitionNum === -1 ) {
-        console.log("error: transition array probably empty");
-      }
-    }
-  }
-
-  // Space or ENTER or RETURN will activate a sections
-  if( key === ' ' || keyCode === RETURN || keyCode === ENTER ) {
-    complexStateMachine.newState(transitions[selectedTransitionNum]);
-  }
+ 
 }
 
 //==== MODIFY THIS CODE FOR UI =====/
@@ -95,15 +75,5 @@ function drawUI() {
   push();
   textAlign(LEFT);
   textSize(18);
-
-  for( let i = 0; i < transitions.length; i++ ) {
-    fill(255);
-
-    if( selectedTransitionNum === i ) {
-      fill(240,50,0);
-    }
-    text( transitions[i], 100, (height - 100) + (i*30)  );
-  }
-
   pop();
 }

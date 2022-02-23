@@ -1,0 +1,3 @@
+StateName,PNGFilename,KeyTyped,KeyCode,MouseEvent,ClickableName,NextState
+Splash,assets/splash.png,,,mouseReleased,,Instructions
+Instructions,assets/instructions.png,,,,StartGame,Start
