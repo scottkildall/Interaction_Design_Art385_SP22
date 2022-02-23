@@ -71,6 +71,13 @@ class ComplexStateMachine {
                 this.states.push(new State(stateName, this.statesTable.getString(i, 'PNGFilename')));
                 stateArrayIndex = this.states.length - 1;
             } 
+
+            // add other info
+            let nextState = this.statesTable.getString(i, 'NextState');
+            let clickableName = this.statesTable.getString(i, 'ClickableName');
+
+            this.states[stateArrayIndex].addInteraction(clickableName, nextState);
+
         }
         
         // All DONE
@@ -80,6 +87,25 @@ class ComplexStateMachine {
         this.performCallbacks();
 
         return this.hasValidStates;
+    }
+
+    // a clickable was pressed, look for it in the interaction table
+    clickablePressed(clickableName) {
+        // this will be = the clickable pressed
+         // go through each row, look for a match to the current state
+      for (let i = 0; i < this.interactionTable.getRowCount(); i++) {
+
+        // the .name property of a function will convert function to string for comparison
+        if(this.currentStateName === this.interactionTable.getString(i, 'CurrentState') ) {
+            // now, look for a match with the key typed, converting it to a string
+            if( this.interactionTable.getString(i, 'ClickableName') === clickableName ) {
+                // if a match, set the drawFunction to the next state, eval() converts
+                // string to function
+                this.changeState(this.interactionTable.getString(i, 'NextState') );
+                break;
+            }
+        }
+      }
     }
 
     // set new state, make callbacks
@@ -113,7 +139,12 @@ class State {
     constructor(stateName, imageFilename) {
         this.stateName = stateName;
         this.imageFilename = imageFilename;
-        this.transitions = [];
+        this.clickableNames = [];
         this.nextStates = [];
+    }
+
+    addInteraction(clickableName, nextState) {
+        this.clickableNames.push(clickableName);
+        this.nextStates.push(nextState);
     }
 }

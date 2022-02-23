@@ -37,6 +37,10 @@ function setup() {
 
   // setup the state machine with callbacks
   complexStateMachine.setup(clickablesManager, setImage);
+
+  // call OUR function to setup additional information about the p5.clickables
+  // that are not in the array 
+  setupClickables(); 
  }
 
 
@@ -45,6 +49,32 @@ function draw() {
   drawBackground();
   drawImage();
   drawUI();
+}
+
+function setupClickables() {
+  // All clickables to have same effects
+  for( let i = 0; i < clickables.length; i++ ) {
+    clickables[i].onHover = clickableButtonHover;
+    clickables[i].onOutside = clickableButtonOnOutside;
+    clickables[i].onPress = clickableButtonPressed;
+  }
+}
+
+// tint when mouse is over
+clickableButtonHover = function () {
+  this.color = "#F2545B";
+  this.noTint = false;
+  this.tint = "#FF0000";
+}
+
+// color a light gray if off
+clickableButtonOnOutside = function () {
+  // backto our gray color
+  this.color = "#E9D6EC";
+}
+
+clickableButtonPressed = function() {
+  complexStateMachine.clickablePressed(this.name);
 }
 
 // this is a callback, which we use to set our display image
@@ -76,4 +106,6 @@ function drawUI() {
   textAlign(LEFT);
   textSize(18);
   pop();
+
+  clickablesManager.draw();
 }
