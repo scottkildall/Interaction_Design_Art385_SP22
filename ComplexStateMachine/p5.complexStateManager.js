@@ -49,10 +49,11 @@ class ComplexStateMachine {
     // this will go through the states table and:
     // (1) add a new state for every unique state
     // (2) add a 
-    setup(clickableManager, imageFilenameCallback) {
+    setup(clickableManager, imageFilenameCallback, stateChangedCallback) {
         console.log(this.statesTable);
 
         this.setImageFilenameCallback = imageFilenameCallback;
+        this.stateChangedCallback = stateChangedCallback;
         this.clickableArray = clickableManager.getClickableArray();
 
         // For each row, allocate a new state, if it is unique
@@ -102,11 +103,16 @@ class ComplexStateMachine {
             console.log(nextState);
             this.newState(nextState);
         }
-        
     }
 
     // set new state, make callbacks
     newState(newStateName) {
+        let newStateNum = this.stateNames.indexOf(newStateName); 
+        if( newStateNum === -1 ) {
+            console.log("Error: " + newState() + " cannot find " + newStateName );
+            return;
+        }
+
         this.currentState = this.stateNames.indexOf(newStateName); 
         this.performCallbacks();
         this.changeButtonsVisibility();
@@ -132,6 +138,7 @@ class ComplexStateMachine {
     performCallbacks() {
         // perform initial callbacks - if there is an invalid CSV, this will produce an error
         this.setImageFilenameCallback(this.states[this.currentState].imageFilename);
+        this.stateChangedCallback(this.states[this.currentState].stateName);
     }
 }
 

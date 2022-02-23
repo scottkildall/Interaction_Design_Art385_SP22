@@ -18,13 +18,19 @@ var complexStateMachine;           // the ComplexStateMachine class
 var clickablesManager;             // our clickables manager
 var clickables;                    // an array of clickable objects
 
+var currentStateName = "";
 var moodImage;
 
 var bkColor = '#031927';
+var textColor = '#E9D6EC';
+
+var buttonFont;
 
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
+
+  buttonFont = loadFont("AtariClassic-ExtraSmooth.ttf");
 }
 
 // Setup code goes here
@@ -36,7 +42,7 @@ function setup() {
   clickables = clickablesManager.setup();
 
   // setup the state machine with callbacks
-  complexStateMachine.setup(clickablesManager, setImage);
+  complexStateMachine.setup(clickablesManager, setImage, stateChanged);
 
   // call OUR function to setup additional information about the p5.clickables
   // that are not in the array 
@@ -57,6 +63,8 @@ function setupClickables() {
     clickables[i].onHover = clickableButtonHover;
     clickables[i].onOutside = clickableButtonOnOutside;
     clickables[i].onPress = clickableButtonPressed;
+    clickables[i].textFont = "AtariClassic-ExtraSmooth";
+    clickables[i].width = 220;
   }
 }
 
@@ -82,11 +90,18 @@ function setImage(imageFilename) {
   moodImage = loadImage(imageFilename);
 } 
 
+// this is a callback, which we can use for different effects
+function stateChanged(newStateName) {
+    currentStateName = newStateName;
+    console.log(currentStateName);
+} 
 
 
 //==== KEYPRESSED ====/
-function keyPressed() {
- 
+function mousePressed() {
+  // if( currentStateName === "Splash" ) {
+  //   complexStateMachine.newState("Instructions");
+  // }
 }
 
 //==== MODIFY THIS CODE FOR UI =====/
@@ -96,16 +111,24 @@ function drawBackground() {
 }
 
 function drawImage() {
+  push();
+
   if( moodImage !== undefined ) {
     image(moodImage, width/2, height/2);
   }  
+
+  // Draw mood 
+  if( currentStateName !== "Splash" && currentStateName !== "Instructions") {
+    fill(color(textColor));
+    textFont(buttonFont);
+    textSize(24);
+    text(currentStateName, width/2, 50);
+  }
+
+  pop();
 }
 
+//-- right now, it is just the clickables
 function drawUI() {
-  push();
-  textAlign(LEFT);
-  textSize(18);
-  pop();
-
   clickablesManager.draw();
 }
