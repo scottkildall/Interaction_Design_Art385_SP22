@@ -1,3 +1,3 @@
 ID,Name,PNGFilename,Text,x,y,visible
 0,Start,,Start Scenario,100,650,yes
-1,Restart,,Restart,600,650,yes
+1,Restart,,Restart,1000,650,yes

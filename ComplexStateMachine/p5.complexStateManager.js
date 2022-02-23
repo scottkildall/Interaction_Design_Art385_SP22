@@ -41,7 +41,8 @@ class ComplexStateMachine {
             this.clickableTable = loadTable(clickableLayoutFilename, 'csv', 'header');
         }
 
-        console.log(this.clickableTable);
+        
+        console.log(this.states);
     }
 
     // expects as .csv file with the format as outlined in the readme file
@@ -83,50 +84,49 @@ class ComplexStateMachine {
         // All DONE
         console.log("Setup done");
         console.log(this.states);
+        console.log(this.clickableArray);
         
         this.performCallbacks();
+        
+        this.changeButtonsVisibility();
 
         return this.hasValidStates;
     }
 
     // a clickable was pressed, look for it in the interaction table
     clickablePressed(clickableName) {
-        // this will be = the clickable pressed
-         // go through each row, look for a match to the current state
-      for (let i = 0; i < this.interactionTable.getRowCount(); i++) {
-
-        // the .name property of a function will convert function to string for comparison
-        if(this.currentStateName === this.interactionTable.getString(i, 'CurrentState') ) {
-            // now, look for a match with the key typed, converting it to a string
-            if( this.interactionTable.getString(i, 'ClickableName') === clickableName ) {
-                // if a match, set the drawFunction to the next state, eval() converts
-                // string to function
-                this.changeState(this.interactionTable.getString(i, 'NextState') );
-                break;
-            }
+        let cIndex = this.states[this.currentState].clickableNames.indexOf(clickableName); 
+        console.log(cIndex);
+        if( cIndex !== -1 ) {
+            let nextState = this.states[this.currentState].nextStates[cIndex]; 
+            console.log(nextState);
+            this.newState(nextState);
         }
-      }
+        
     }
 
     // set new state, make callbacks
-    newState(transitionsName) {
-        //console.log(transitionsName)
-        //console.log(this.states[this.currentState].transitions);
-        
-        // find the state index in the statesArray
-        let newStateIndex = this.states[this.currentState].transitions.indexOf(transitionsName); 
-        if( newStateIndex === -1 ) {
-            console.log("Error in newState(), transition not found");
-            return;
-        }
-
-        // grab the state name
-        let newStateName = this.states[this.currentState].nextStates[newStateIndex];
+    newState(newStateName) {
         this.currentState = this.stateNames.indexOf(newStateName); 
-
-        console.log( "new state = " + newStateName);   
-
         this.performCallbacks();
+        this.changeButtonsVisibility();
+    }
+
+    // turn various clickables on/off according to the current state
+    changeButtonsVisibility() {
+        // this is the array where the button is VISIBLE for that state
+        // OPTIMIZATION: store this in setup somethwere
+        let clickablesOn = this.states[this.currentState].clickableNames; 
+
+        for( let i = 0; i < this.clickableArray.length; i++ ) {
+            let cIndex = clickablesOn.indexOf(this.clickableArray[i].name);
+            if( cIndex === -1 ) {
+                this.clickableArray[i].visible = false;
+            }
+            else {
+                this.clickableArray[i].visible = true;
+            }
+        }
     }
 
     performCallbacks() {
