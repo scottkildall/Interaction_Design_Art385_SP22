@@ -54,6 +54,7 @@ function setup() {
 function draw() {
   drawBackground();
   drawImage();
+  drawOther();
   drawUI();
 }
 
@@ -111,14 +112,16 @@ function drawBackground() {
 }
 
 function drawImage() {
-  push();
-
   if( moodImage !== undefined ) {
     image(moodImage, width/2, height/2);
   }  
+}
 
-  // Draw mood 
-  if( currentStateName !== "Splash" && currentStateName !== "Instructions") {
+function drawOther() {
+  push();
+
+   // Draw mood — if not on Splash or Instructions screen  
+   if( currentStateName !== "Splash" && currentStateName !== "Instructions") {
     fill(color(textColor));
     textFont(buttonFont);
     textSize(24);
