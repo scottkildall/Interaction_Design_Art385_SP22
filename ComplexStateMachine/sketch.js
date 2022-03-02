@@ -19,7 +19,7 @@ var clickablesManager;             // our clickables manager
 var clickables;                    // an array of clickable objects
 
 var currentStateName = "";
-var moodImage;
+var backgroundImage;
 
 var bkColor = '#031927';
 var textColor = '#E9D6EC';
@@ -88,7 +88,7 @@ clickableButtonPressed = function() {
 
 // this is a callback, which we use to set our display image
 function setImage(imageFilename) {
-  moodImage = loadImage(imageFilename);
+  backgroundImage = loadImage(imageFilename);
 } 
 
 // this is a callback, which we can use for different effects
@@ -111,9 +111,10 @@ function drawBackground() {
   background(color(bkColor));
 }
 
+// draw centered
 function drawImage() {
-  if( moodImage !== undefined ) {
-    image(moodImage, width/2, height/2);
+  if( backgroundImage !== undefined ) {
+    image(backgroundImage, width/2, height/2);
   }  
 }
 
