@@ -1,0 +1,28 @@
+CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+Start,,,mouseReleased,,,Instruction
+Instruction,,,,Start,,Shelter
+Shelter,,,,,E,Crosswalk
+Crosswalk,,,,,W,Shelter
+Crosswalk,,,,,S,Crosswalk 2
+Crosswalk,,,,,E,Fountain
+Fountain,,,,,N,Flower Garden
+Fountain,,,,,W,Crosswalk
+Fountain,,,,,S,Child Park
+Fountain,,,,,E,Dog Park
+Flower Garden,,,,,S,Fountain
+Dog Park,,,,,W,Fountain
+Dog Park,,,,,S,Park Bench
+Park Bench,,,,,N,Dog Park
+Park Bench,,,,,S,Lake
+Park Bench,,,,,W,Child Park
+Lake,,,,,N,Park Bench
+Child Park,,,,,E,Park Bench
+Child Park,,,,,N,Fountain
+Child Park,,,,,W,Crosswalk 2
+Crosswalk 2,,,,,E,Child Park
+Crosswalk 2,,,,,N,Crosswalk
+Challenge One,,,,Start2,,CrossRoads
+Challenge Two,,,,Start3,,Operation Carrot
+Challenge Three,,,,Start4,,Operation Raindrop
+Challenge Four,,,,Start5,,Operation Tennis Ball
+Challenge Five,,,,Start6,,Operation Cheese Maze

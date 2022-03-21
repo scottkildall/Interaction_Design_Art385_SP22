@@ -1,0 +1,23 @@
+ID,StateName,ClassName,PNGFilename,CollisionFilename
+0,Start,PNGRoom,assets/Start Screen.png,
+1,Instruction,PNGRoom,assets/Instruction Screen.png,
+2,Shelter,PNGRoom,assets/Shelter.png,
+3,Crosswalk,crosswalk,assets/Crosswalk.png,assets/Crosswalk_cl.csv
+4,Fountain,PNGRoom,assets/Fountain.png,assets/Fountain_cl.csv
+5,Flower Garden,PNGRoom,assets/Flower Garden.png,assets/Flower Garden_cl.csv
+6,Dog Park,PNGRoom,assets/Dog Park.png,assets/Dog Park_cl.csv
+7,Park Bench,PNGRoom,assets/Park Bench.png,assets/Park Bench_cl.csv
+8,Lake,PNGRoom,assets/Lake.png,assets/Lake_cl.csv
+9,Child Park,PNGRoom,assets/Child Park.png,assets/Child Park_cl.csv
+10,Crosswalk 2,PNGRoom,assets/Crosswalk 2.png,assets/Crosswalk 2_cl.csv
+11,Challenge One,PNGRoom,assets/Challenge One.png,
+12,CrossRoads,challengeOne,assets/CrossRoads.png,
+13,Challenge Two,PNGRoom,assets/Challenge Two.png,
+14,Operation Carrot,operationCarrot,assets/Operation Carrot.png,
+15,Challenge Three,PNGRoom,assets/Challenge Three.png,
+16,Operation Raindrop,operationRaindrop,assets/Operation Raindrop.png,
+17,Challenge Four,PNGRoom,assets/Challenge Four.png,
+18,Operation Tennis Ball,operationTennisBall,assets/Operation Tennis Ball.png,
+19,Challenge Five,PNGRoom,assets/Challenge Five.png,
+20,Operation Cheese Maze,operationCheeseMaze,assets/Operation Cheese Maze.png,assets/Operation Cheese Maze_cl.csv
+21,Win,PNGRoom,assets/Win.png,
