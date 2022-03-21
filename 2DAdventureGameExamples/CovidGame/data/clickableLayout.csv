@@ -1,3 +1,0 @@
-ID,Name,State,PNGFilename,Text,x,y,width,height
-0,StartGame,Instructions,,Start Game,100,650,100,50
-1,Restart,Dead,,Restart Game,100,650,100,50
