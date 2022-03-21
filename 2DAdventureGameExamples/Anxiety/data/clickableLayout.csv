@@ -1,0 +1,3 @@
+ID,Name,State,PNGFilename,Text,x,y,visible
+0,StartGame,Instructions,assets/startbutton.png,,800,650,yes
+1,GetRelief,,assets/reliefbutton.png,,550,450,no

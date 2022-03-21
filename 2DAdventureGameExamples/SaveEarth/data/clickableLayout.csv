@@ -1,0 +1,25 @@
+ID,Name,State,PNGFilename,Text,x,y,width,height
+0,Home,FrontYardWatered,,Home,900,609,100,50
+1,Start,Instructions,,Start,539,625,150,60
+2,Instructions,IntroScreen,,Instructions,510,625,200,60
+3,Sprinkler,FrontYardBefore,assets/Sprinkler.png,,891,579,123,123
+4,HandSprinkler,FrontYardBefore,assets/HandSprinkler.png,,1051,579,123,123
+5,Recycle,Kitchen,,Recycle,1051,619,100,50
+6,Landfill,Kitchen,,Landfill,895,619,100,50
+7,NextS,FrontYardSprinkler,,Next,1021,609,100,50
+8,NextH,FrontYardHand,,Next,1021,609,100,50
+9,Back,Note,,Back,1021,609,100,50
+10,Mirror,Bathroom,,Mirror,1021,609,100,50
+11,BackC,MirrorClean,,Back,1021,609,100,50
+12,BackD1,MirrorDirty1,,Back,1021,609,100,50
+13,BackD2,MirrorDirty2,,Back,1021,609,100,50
+14,HomeD,FrontYardDirtyAfter,,Home,1021,609,100,50
+15,DownButton,AC,assets/DownButton.png,,866,400,118,80
+16,UpButton,AC,assets/UpButton.png,,240,400,118,80
+17,BackAC,AC,,Back,1021,609,100,50
+18,Outside,FrontYardWatered,,Outside,1051,609,100,50
+19,Email,ComputerStart,assets/email.png,,730,433,70,52
+20,Delete,ComputerEmail,assets/Delete.png,,540,100,20,29
+21,Exit,ComputerClean,,Exit,1021,609,100,50
+22,StoreBag,Ms.SweetHouse,,Plastic Bag,900,600,100,70
+23,RecycleBag,Ms.SweetHouse,assets/bag.png,,1051,579,78,92

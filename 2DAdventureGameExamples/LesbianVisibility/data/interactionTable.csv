@@ -1,0 +1,6 @@
+CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+Instructions,,,,interactButton,,Sexy
+Sexy,,,,,W,Het
+Het,,,,,N,White
+White,,,,,E,Evil
+Evil,,,,,N,End

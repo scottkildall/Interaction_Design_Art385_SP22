@@ -1,0 +1,16 @@
+CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+Splash,,,,start,,Instructions
+Instructions,z,,,,,Learning
+Learning,z,,,,,LearningC
+LearningC,,,,,E,Learning2
+Learning2,z,,,,,Learning2C
+Learning2C,,,,,E,SolutionSelect
+SolutionSelect,,,,,E,CGardens
+CGardens,z,,,,,CGardensP
+CGardensP,,,,beautify,,CGardensB
+CGardensB,,,,,E,CGardens3
+CGardens3,,,,,W,CGardensB
+CGardens3,z,,,,,Resources
+Resources,,,,,E,End
+End,,,,,W,Resources
+End,,,,playAgain,,Splash

@@ -1,0 +1,23 @@
+CurrentState,KeyTyped,KeyCode,MouseEvent,ClickableName,MapDirection,NextState
+splashScreen,,,mouseReleased,,,sacrificeZoneIntroScreen
+sacrificeZoneIntroScreen, ,,,continueGame,,narrativeIntroOneScreen
+narrativeIntroOneScreen, ,,,,,sweetfieldMapOneScreen
+sweetfieldMapOneScreen, ,,,,,narrativeIntroTwoScreen
+narrativeIntroTwoScreen, ,,,,,sweetfieldMapTwoScreen
+sweetfieldMapTwoScreen, ,,,,,instructionsScreen
+instructionsScreen,,,,startGame,,levelOneBasicNeedsScreen
+levelOneBasicNeedsScreen,,,,getFood,,levelTwoSafetyScreen
+levelTwoSafetyScreen,,,,getMask,,levelThreeABelongingnessScreen
+levelThreeABelongingnessScreen,,,,,S,levelThreeBBelongingnessScreen
+levelThreeBBelongingnessScreen,,,,,E,levelFourAEsteemScreen
+levelFourAEsteemScreen,,,,,E,levelFourBEsteemScreen
+levelFourBEsteemScreen,e,,,,,levelFiveAKnowledgeScreen
+levelFiveAKnowledgeScreen,,,,discoverSweetfieldHistory,,levelFiveBKnowledgeScreen
+levelFiveBKnowledgeScreen,,,,,S,levelSixSelfActualizationScreen
+levelSixSelfActualizationScreen,,,,,W,levelSevenTranscendenceScreen
+levelSevenTranscendenceScreen,,,,plantSweetflower,,levelSevenTranscendenceScreenEdited
+levelSevenTranscendenceScreenEdited,c,,,,,sweetfieldSavedAScreen
+sweetfieldSavedAScreen,,,,,W,sweetfieldSavedBScreen
+sweetfieldSavedBScreen, ,,,,,narrativeEndingScreen
+narrativeEndingScreen, ,,,,,climateJusticeAllianceScreen
+climateJusticeAllianceScreen,,,,playAgain,,splashScreen

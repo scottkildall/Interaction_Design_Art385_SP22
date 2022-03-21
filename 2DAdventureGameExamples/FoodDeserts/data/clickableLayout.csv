@@ -1,0 +1,4 @@
+ID,Name,State,PNGFilename,Text,x,y,Visable
+0,start,Splash,assets/startButton.png,,1114,658,yes
+1,beautify,CGardensP,assets/beautifyButton.png,,1098,656,yes
+2,playAgain,End,assets/playAgainButton.png,,1078,656,yes
