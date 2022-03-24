@@ -17,6 +17,12 @@ var speed = 10;
 var star;
 var starImg;
 
+// keycods for W-A-S-D
+const W_KEY = 87;
+const S_KEY = 83;
+const D_KEY = 68;
+const A_KEY = 65;
+
 function preload() {
   starImg = loadImage('assets/fullStar.png');
 }
@@ -83,6 +89,12 @@ function checkMovement() {
   else {
     ghost.velocity.y = 0;
   }
+
+  // use keyIsDown(W_KEY)  for your player sprite, moving up
+  // use keyIsDown(A_KEY)  for your player sprite, moving left
+  // ...etc
+  
+
 }
 
 // SpriteA is the sprite in question, spriteA will be ghost in this case
