@@ -5,6 +5,7 @@
 
   Improvements:
   - stop for an avatar
+  - mirror
   - add individual speeds for different avatars
   - set positions for each one
   - do collision-detection
@@ -25,12 +26,9 @@ var selectedIndex = 0;
 
 function preload() {
   // Add new avatar animations here
-  avatars[0] = new Avatar("Ghost", 400, 150, 'assets/ghost_standing0001.png', 'assets/ghost_standing0007.png');
-  avatars[1] = new Avatar("Blob", 200, 150, 'assets/blueblob-01.png', 'assets/blueblob-04.png');
-  
-  // More efficient way of doing this, but less easy to ready
-  //avatars.push(new Avatar("Ghost", 400, 150), 'assets/ghost_standing0001.png', 'assets/ghost_standing0007.png') );
-
+  avatars[0] = new Avatar("Matt", 100, 150, 'assets/walk-01.png', 'assets/walk-04.png');
+  avatars[1] = new Avatar("Mitch", 300, 150, 'assets/mos_1.png', 'assets/mos_2.png');
+  avatars[2] = new Avatar("Jennifer", 300, 150, 'assets/tree01.png', 'assets/tree03.png');
 }
 // Setup code goes here
 function setup() {
@@ -42,7 +40,7 @@ function setup() {
 // Draw code goes here
 function draw() {
   // could draw a PNG file here
-  background(128);
+  background(255);
 
   // trap keyboard arrow keys
   checkMovement();
@@ -86,6 +84,7 @@ function checkMovement() {
   avatars[selectedIndex].setSpeed(xSpeed, ySpeed);
 }
 
+// Animated character
 class Avatar  {
   // gets called with new keyword
   constructor(name, x, y, startPNGPath, endPNGPath) {
@@ -93,6 +92,9 @@ class Avatar  {
     this.sprite = createSprite(x, y);
     this.sprite.addAnimation('floating', startPNGPath, endPNGPath);
     
+    // no grabables
+    this.grabbable = undefined;
+
     // make avatar still
     this.setSpeed(0,0);
   }
