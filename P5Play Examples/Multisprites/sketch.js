@@ -30,11 +30,14 @@ function preload() {
  
   // Add new avatar animations here
   avatars[0] = new Avatar("Matt", 100, 150, 'assets/walk-01.png', 'assets/walk-04.png');
-  avatars[0].setMaxSpeed(2);
+  avatars[0].setMaxSpeed(1);
   
   avatars[1] = new Avatar("Mitch", 400, 150, 'assets/mos_1.png', 'assets/mos_2.png');
+  avatars[1].setMaxSpeed(3);
+
   avatars[2] = new Avatar("Jennifer", 500, 150, 'assets/blob01.png', 'assets/blob08.png');
   avatars[2].setMaxSpeed(20);
+
   avatars[3] = new Avatar("Ty", 200, 400, 'assets/avatar1.png', 'assets/avatar5.png');
   avatars[4] = new Avatar("Hannah", 100, 400, 'assets/Smile01.png', 'assets/Smile04.png');
   avatars[5] = new Avatar("Luis", 300, 400, 'assets/run1.png', 'assets/run2.png');
@@ -123,10 +126,12 @@ class Avatar  {
     this.setSpeed(0,0);
   }
 
+  // store max speed in a class variable
   setMaxSpeed(num) {
     this.maxSpeed = num;
   }
 
+  // set current speed, flip sprite, constain to max
   setSpeed(xSpeed,ySpeed) {
     // flip sprite depending on direction
     if( xSpeed > 0 ) {
@@ -135,22 +140,10 @@ class Avatar  {
     else {
       this.sprite.mirrorX(1);
     }
-
-    this.sprite.velocity.x = xSpeed;
-    if( this.sprite.velocity.x > this.maxSpeed ) {
-      this.sprite.velocity.x = this.maxSpeed;
-    }
-    else if( this.sprite.velocity.x < -this.maxSpeed ) {
-      this.sprite.velocity.x = -this.maxSpeed;
-    }
-
-    this.sprite.velocity.y = ySpeed;
-    if( this.sprite.velocity.y > this.maxSpeed ) {
-      this.sprite.velocity.y = this.maxSpeed;
-    }
-    else if( this.sprite.velocity.y < -this.maxSpeed ) {
-      this.sprite.velocity.y = -this.maxSpeed;
-    }
+    
+    // set to xSpeed and constrain to max speed
+    this.sprite.velocity.x = constrain(xSpeed, -this.maxSpeed, this.maxSpeed );
+    this.sprite.velocity.y = constrain(ySpeed, -this.maxSpeed, this.maxSpeed );
   }
 
   // accessor function to give avatar a grabbable
@@ -167,14 +160,17 @@ class Avatar  {
     }
   }
 
+  // draws the name
   drawLabel() {
     textSize(12);
     fill(240);
-    text(this.name, this.sprite.position.x, this.sprite.position.y);
+    text(this.name, this.sprite.position.x + 20, this.sprite.position.y);
   }
 }
 
+// 2D sprite which we will be able to pick up
 class Grabbable {
+  // call upon preload() of p5.js to acutally load the image
   constructor(x, y, pngPath) {
     this.img = loadImage(pngPath);
     this.sprite = createSprite(x, y);
