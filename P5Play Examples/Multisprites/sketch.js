@@ -27,8 +27,13 @@ var selectedIndex = 0;
 function preload() {
   // Add new avatar animations here
   avatars[0] = new Avatar("Matt", 100, 150, 'assets/walk-01.png', 'assets/walk-04.png');
-  avatars[1] = new Avatar("Mitch", 300, 150, 'assets/mos_1.png', 'assets/mos_2.png');
-  avatars[2] = new Avatar("Jennifer", 300, 150, 'assets/tree01.png', 'assets/tree03.png');
+  avatars[1] = new Avatar("Mitch", 400, 150, 'assets/mos_1.png', 'assets/mos_2.png');
+  avatars[2] = new Avatar("Jennifer", 500, 150, 'assets/blob01.png', 'assets/blob08.png');
+  avatars[3] = new Avatar("Ty", 200, 400, 'assets/avatar1.png', 'assets/avatar5.png');
+  avatars[4] = new Avatar("Hannah", 100, 400, 'assets/Smile01.png', 'assets/Smile04.png');
+  avatars[5] = new Avatar("Luis", 300, 400, 'assets/run1.png', 'assets/run2.png');
+  avatars[6] = new Avatar("Morgan", 500, 400, 'assets/frog-01.png', 'assets/frog-08.png');
+  avatars[7] = new Avatar("Savannah", 100, 700, 'assets/girl2.png', 'assets/girl6.png');
 }
 // Setup code goes here
 function setup() {
@@ -40,7 +45,7 @@ function setup() {
 // Draw code goes here
 function draw() {
   // could draw a PNG file here
-  background(255);
+  background(128);
 
   // trap keyboard arrow keys
   checkMovement();
