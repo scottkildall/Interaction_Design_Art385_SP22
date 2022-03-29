@@ -18,26 +18,38 @@
 ***********************************************************************************/
 
 // This is a 'sprite' which we can move
-var speed = 10;
+var speed = 20;
 
 // an array of all the class avaatars
 var avatars = [];
 var selectedIndex = 0;
 
+var star;
+
 function preload() {
+ 
   // Add new avatar animations here
   avatars[0] = new Avatar("Matt", 100, 150, 'assets/walk-01.png', 'assets/walk-04.png');
+  avatars[0].setMaxSpeed(2);
+  
   avatars[1] = new Avatar("Mitch", 400, 150, 'assets/mos_1.png', 'assets/mos_2.png');
   avatars[2] = new Avatar("Jennifer", 500, 150, 'assets/blob01.png', 'assets/blob08.png');
+  avatars[2].setMaxSpeed(20);
   avatars[3] = new Avatar("Ty", 200, 400, 'assets/avatar1.png', 'assets/avatar5.png');
   avatars[4] = new Avatar("Hannah", 100, 400, 'assets/Smile01.png', 'assets/Smile04.png');
   avatars[5] = new Avatar("Luis", 300, 400, 'assets/run1.png', 'assets/run2.png');
   avatars[6] = new Avatar("Morgan", 500, 400, 'assets/frog-01.png', 'assets/frog-08.png');
   avatars[7] = new Avatar("Savannah", 100, 700, 'assets/girl2.png', 'assets/girl6.png');
+
+  star = new Grabbable(400, 400, 'assets/fullStar.png');
+  avatars[3].setGrabbable(star);
 }
+
 // Setup code goes here
 function setup() {
   createCanvas(1000, 800);
+
+  star.setup();
 
   frameRate(30);
  }
@@ -52,6 +64,11 @@ function draw() {
 
   // drawSprites is a function in p5.play, draws all the sprites
   drawSprites();
+
+  for( let i = 0; i < avatars.length; i++ ) {
+    avatars[i].drawLabel();
+    avatars[i].update();
+  }
 }
 
 // This will reset position
@@ -96,7 +113,9 @@ class Avatar  {
     this.name = name;
     this.sprite = createSprite(x, y);
     this.sprite.addAnimation('floating', startPNGPath, endPNGPath);
+    this.maxSpeed = 6;
     
+    //console.log(this);
     // no grabables
     this.grabbable = undefined;
 
@@ -104,8 +123,64 @@ class Avatar  {
     this.setSpeed(0,0);
   }
 
+  setMaxSpeed(num) {
+    this.maxSpeed = num;
+  }
+
   setSpeed(xSpeed,ySpeed) {
+    // flip sprite depending on direction
+    if( xSpeed > 0 ) {
+      this.sprite.mirrorX(-1);
+    }
+    else {
+      this.sprite.mirrorX(1);
+    }
+
     this.sprite.velocity.x = xSpeed;
+    if( this.sprite.velocity.x > this.maxSpeed ) {
+      this.sprite.velocity.x = this.maxSpeed;
+    }
+    else if( this.sprite.velocity.x < -this.maxSpeed ) {
+      this.sprite.velocity.x = -this.maxSpeed;
+    }
+
     this.sprite.velocity.y = ySpeed;
+    if( this.sprite.velocity.y > this.maxSpeed ) {
+      this.sprite.velocity.y = this.maxSpeed;
+    }
+    else if( this.sprite.velocity.y < -this.maxSpeed ) {
+      this.sprite.velocity.y = -this.maxSpeed;
+    }
+  }
+
+  // accessor function to give avatar a grabbable
+  setGrabbable(grabbable) {
+    this.grabbable = grabbable;
+  }
+
+  // if avatar has a grabble, update the position of that grabbable
+  // call every draw loop
+  update() {
+    if( this.grabbable !== undefined ) {
+      this.grabbable.sprite.position.x = this.sprite.position.x + 10;
+      this.grabbable.sprite.position.y = this.sprite.position.y + 10;
+    }
+  }
+
+  drawLabel() {
+    textSize(12);
+    fill(240);
+    text(this.name, this.sprite.position.x, this.sprite.position.y);
+  }
+}
+
+class Grabbable {
+  constructor(x, y, pngPath) {
+    this.img = loadImage(pngPath);
+    this.sprite = createSprite(x, y);
+  }
+
+  setup() {
+    this.sprite.addImage('static', this.img );
   }
 }
