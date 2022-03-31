@@ -24,13 +24,18 @@ var speed = 20;
 var playerAvatar;
 var selectedIndex = 0;
 
-var star;
+// keycods for W-A-S-D
+const W_KEY = 87;
+const S_KEY = 83;
+const D_KEY = 68;
+const A_KEY = 65;
 
 function preload() {
  
   // Add new avatar animations here
-  playerAvatar = new Avatar("Player", 100, 150, 'assets/walk-01.png', 'assets/walk-04.png');
+  playerAvatar = new Avatar("Player", 100, 150, 'assets/run1.png', 'assets/run2.png');
   playerAvatar.setMaxSpeed(5);
+  playerAvatar.addStandingAnimation('assets/standing1.png', 'assets/standing2.png')
 }
 
 // Setup code goes here
@@ -61,25 +66,28 @@ function keyPressed() {
   }
 }
 
+// respond to W-A-S-D or the arrow keys
 function checkMovement() {
   var xSpeed = 0;
   var ySpeed = 0;
 
   // Check x movement
-  if(keyIsDown(RIGHT_ARROW)) {
+  if(keyIsDown(RIGHT_ARROW) || keyIsDown(D_KEY)) {
     xSpeed = speed;
   }
-  else if(keyIsDown(LEFT_ARROW)) {
+  else if(keyIsDown(LEFT_ARROW) || keyIsDown(A_KEY)) {
     xSpeed = -speed;
   }
   
   // Check y movement
-  if(keyIsDown(DOWN_ARROW)) {
+  if(keyIsDown(DOWN_ARROW) || keyIsDown(S_KEY)) {
     ySpeed = speed;
   }
-  else if(keyIsDown(UP_ARROW)) {
+  else if(keyIsDown(UP_ARROW) || keyIsDown(W_KEY)) {
     ySpeed = -speed;
   }
+
+  playerAvatar.setSpeed(xSpeed,ySpeed);
 }
 
 // Animated character
@@ -121,8 +129,10 @@ class Avatar  {
       this.sprite.mirrorX(1);
     }
 
+    this.sprite.changeAnimation('standing');
+    
     // may need to optimize this
-    if( this.xSpeed === 0 && this.ySpeed === 0 && this.hasStandingAnimation === true ) {
+    if( xSpeed === 0 && ySpeed === 0 && this.hasStandingAnimation === true ) {
       this.sprite.changeAnimation('standing');
     }
     else {
