@@ -52,6 +52,8 @@ function preload() {
   door = new StaticSprite("Door", 900,700, 'assets/door.png');
 
   // Add YOUR animation here
+
+  // default direction facing LEFT for the moving animation
   playerAvatar.addMovingAnimation( 'assets/run1.png', 'assets/run2.png');
   playerAvatar.addStandingAnimation('assets/standing1.png', 'assets/standing2.png');
 
@@ -125,6 +127,20 @@ function keyPressed() {
       preventPickup = true;
       playerAvatar.clearGrabbable();
     }
+  }
+
+  // code to switch avatar animations
+  if( key === '1') {
+    playerAvatar.addMovingAnimation( 'assets/run1.png', 'assets/run2.png');
+    playerAvatar.addStandingAnimation('assets/standing1.png', 'assets/standing2.png');
+  }
+  if( key === '2') {
+    playerAvatar.addMovingAnimation( 'assets/blob01.png', 'assets/blob08.png');
+    playerAvatar.addStandingAnimation('assets/blob01.png', 'assets/blob08.png');
+  }
+  if( key === '3') {
+    playerAvatar.addMovingAnimation( 'assets/sun1.png', 'assets/sun5.png');
+    playerAvatar.addStandingAnimation('assets/sun1.png', 'assets/sun5.png');
   }
 }
 
