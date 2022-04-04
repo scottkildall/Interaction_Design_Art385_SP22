@@ -2,13 +2,6 @@
   MultiSprite Navigation
 
   Use of the p5.play library with a sprite class
-
-  Improvements:
-  - stop for an avatar
-  - mirror
-  - add individual speeds for different avatars
-  - set positions for each one
-  - do collision-detection
   
 ------------------------------------------------------------------------------------
 	To use:
@@ -47,16 +40,18 @@ function preload() {
  
   // Add new avatar animations here
   playerAvatar = new Avatar("Player", 100, 150);
+   
+  // MODIFY THIS: to make your avatar go faster or slower
   playerAvatar.setMaxSpeed(5);
 
   door = new StaticSprite("Door", 900,700, 'assets/door.png');
 
-  // Add YOUR animation here
-
   // default direction facing LEFT for the moving animation
+  // MODIFY THIS: change to your avatar filenames
   playerAvatar.addMovingAnimation( 'assets/run1.png', 'assets/run2.png');
   playerAvatar.addStandingAnimation('assets/standing1.png', 'assets/standing2.png');
 
+  // MODIFY THIS - add more grabbables beloiw
   // Add grabbables - these appear on top of the player icon
   grabbables.push(new StaticSprite("Star", 500,500, 'assets/fullStar.png'));
   grabbables.push(new StaticSprite("Key", 750,200, 'assets/key.png'));
@@ -66,7 +61,6 @@ function preload() {
 // Setup code goes here
 function setup() {
   createCanvas(1000, 800);
-
   frameRate(30);
 
   // This will setup the animation
@@ -80,6 +74,7 @@ function setup() {
 
 // Draw code goes here
 function draw() {
+  // MODIFY THIS: if you want to do something more with the key
   if( opened ) {
     background(128,80,0);
   }
@@ -129,6 +124,13 @@ function keyPressed() {
     }
   }
 
+  // MODIFY THIS
+  // Comment out this code BELOW if you don't have multiple avatars
+  checkSelectAvatar();
+}
+
+// MODIFY THIS: if you are using multiple avatars for selection. Change the filenames
+function checkSelectAvatar() {
   // code to switch avatar animations
   if( key === '1') {
     playerAvatar.addMovingAnimation( 'assets/run1.png', 'assets/run2.png');
