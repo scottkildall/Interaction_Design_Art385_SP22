@@ -1,5 +1,5 @@
 /***********************************************************************************
-  MultiSprite Navigation
+  Improved Avatar
 
   Use of the p5.play library with a sprite class
   
