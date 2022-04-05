@@ -3,6 +3,7 @@
   by Scott Kildall
   
   Use of the p5.play library with a sprite class
+  In progress
   
 ------------------------------------------------------------------------------------
 	To use:
