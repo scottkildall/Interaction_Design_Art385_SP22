@@ -230,7 +230,7 @@ class TemplateScreen extends PNGRoom {
   }
 
   // call the PNGRoom superclass's draw function to draw the background image
-  // and draw our instructions on top of this
+  // and draw our code adter this
   draw() {
     // this calls PNGRoom.draw()
     super.draw();
