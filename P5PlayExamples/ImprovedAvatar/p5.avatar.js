@@ -146,3 +146,5 @@ class StaticSprite {
     this.sprite.addImage('static', this.img );
   }
 }
+
+
