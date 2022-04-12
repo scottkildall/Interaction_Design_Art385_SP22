@@ -35,7 +35,7 @@ const A_KEY = 65;
 var speed = 10;
 
 //--- Your globals would go here
-
+var calmDoorUsed = false;
 
 // Allocate Adventure Manager with states table and interaction tables
 function preload() {
@@ -79,6 +79,8 @@ function setup() {
   // that are not in the array 
   setupClickables(); 
   //--
+
+  adventureManager.setChangedStateCallback(stateChanged);
 }
 
 // Adventure manager handles it all!
@@ -140,6 +142,11 @@ function mouseReleased() {
   }
 }
 
+//-- MODIFY THIS:
+function stateChanged(oldStateName, newStateName) {
+  console.log("left state: " + oldStateName);
+  console.log("new state: " + newStateName);
+}
 
 //-------------- CLICKABLE CODE  ---------------//
 
@@ -217,6 +224,47 @@ class InstructionsScreen extends PNGRoom {
     // Draw text in a box
     text(this.instructionsText, width/6, height/6, this.textBoxWidth, this.textBoxHeight );
   }
+}
+
+class CalmRoom extends PNGRoom {
+  preload() {
+    // define class varibles here, load images or anything else
+    
+    // this is a door sprite
+    this.door = new StaticSprite("Door", 500,500, 'assets/door.png');
+    this.doorLoaded = false;
+    
+    calmDoorUsed = false;
+  }
+
+  // call the PNGRoom superclass's draw function to draw the background image
+  // and draw our code adter this
+  draw() {
+    // this calls PNGRoom.draw()
+    super.draw();
+    // Add your code here
+
+    if( this.doorLoaded === false) {
+      this.door.setup();
+      this.doorLoaded = true;
+    }
+
+
+    // draws ALL sprites (may want to change this)
+    if( calmDoorUsed === false ) {
+      drawSprites();
+    }
+
+    playerAvatar.sprite.overlap(this.door.sprite, this.doorCollision);
+  }
+
+   doorCollision(spriteA, spriteB) {
+     // teleport one time
+     if( calmDoorUsed === false ) {
+      adventureManager.changeState("Happy");
+      calmDoorUsed = true;
+     }
+   }
 }
 
 //-- MODIFY THIS: for your own classes
