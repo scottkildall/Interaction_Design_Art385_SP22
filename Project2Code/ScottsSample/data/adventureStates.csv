@@ -3,7 +3,7 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 1,Instructions,InstructionsScreen,assets/Instructions.png,
 2,Start,PNGRoom,assets/Start.png,
 3,Determined,PNGRoom,assets/Determined.png,
-4,Calm,PNGRoom,assets/Calm.png,
+4,Calm,CalmRoom,assets/Calm.png,
 5,Sleepy,PNGRoom,assets/Sleepy.png,
 6,Mad,PNGRoom,assets/Mad.png,
 7,Unlucky,PNGRoom,assets/Unlucky.png,
