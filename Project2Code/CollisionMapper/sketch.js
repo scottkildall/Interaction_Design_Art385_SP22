@@ -79,7 +79,7 @@ function setup() {
   playerSprite = createSprite(width/2, height/2, 80, 80);
 
   // every animation needs a descriptor, since we aren't switching animations, this string value doesn't matter
-  playerSprite.addAnimation('regular', loadAnimation('assets/avatars/bubbly0001.png', 'assets/avatars/bubbly0004.png'));
+  playerSprite.addAnimation('regular', loadAnimation('assets/bubbly0001.png', 'assets/bubbly0004.png'));
 
   // this is optional but will manage turning visibility of buttons on/off
   // based on the state name in the clickableLayout

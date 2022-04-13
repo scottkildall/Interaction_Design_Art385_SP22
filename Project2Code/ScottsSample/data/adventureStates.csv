@@ -10,4 +10,4 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 8,Anxious,PNGRoom,assets/Anxious.png,
 9,Happy,PNGRoom,assets/Happy.png,
 10,Surprised,PNGRoom,Assets/Surprised.png,
-11,Sad,PNGRoom,Assets/Sad.png,
+11,Sad,PNGRoom,Assets/Sad.png,Assets/Sad_cl.csv
