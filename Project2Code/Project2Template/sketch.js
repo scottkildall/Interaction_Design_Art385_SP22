@@ -81,7 +81,7 @@ function setup() {
   //--
 
   // NEW: line for debugging
-  adventureManager.changeState("Unlucky");
+  //adventureManager.changeState("Unlucky");
 }
 
 // Adventure manager handles it all!
