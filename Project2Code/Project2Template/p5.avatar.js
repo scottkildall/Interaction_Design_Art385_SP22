@@ -211,14 +211,7 @@ class NPC extends Avatar {
     // Only displays the interact prompt or current dialogue of the NPC when the player 
     // avatar is overlapping the NPC sprite.
     if(target.sprite.overlap(this.sprite)) {
-      // MODIFY THIS - drawing of the prompt
-      fill('white');
-      textSize(14);
-      
-      textAlign(CENTER);
-      
-      text(this.displayMessage, this.sprite.position.x + this.promptX, this.sprite.position.y + this.promptY);
-    
+      this.drawPrompt();
       if(keyCode === this.keyCodeNum ) {
         // This variable is to ensure that only one NPC is active at a time. Without this,
         // having multiple NPCs on a single screen may cause some bugs in the progression of
@@ -238,6 +231,16 @@ class NPC extends Avatar {
       this.displayMessage = this.interactWithMeMessage;
       this.isActive = false;
     }  
+  }
+
+  // MODIFY THIS - drawing of the prompt
+  drawPrompt() {
+      fill('white');
+      textSize(14);
+      
+      textAlign(CENTER);
+      
+      text(this.displayMessage, this.sprite.position.x + this.promptX, this.sprite.position.y + this.promptY);
   }
 
   // Continues the conversation with an NPC through the interaction array.
