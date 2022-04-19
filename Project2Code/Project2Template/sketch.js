@@ -79,6 +79,9 @@ function setup() {
   // that are not in the array 
   setupClickables(); 
   //--
+
+  // NEW: line for debugging
+  adventureManager.changeState("Unlucky");
 }
 
 // Adventure manager handles it all!
@@ -105,6 +108,12 @@ function draw() {
     //--
   } 
 }
+
+function keyPressed() {
+  adventureManager.keyPressed();
+}
+
+
 
 //--- TEMPLATE STUFF: Don't change 
 // respond to W-A-S-D or the arrow keys
@@ -217,6 +226,80 @@ class InstructionsScreen extends PNGRoom {
     // Draw text in a box
     text(this.instructionsText, width/6, height/6, this.textBoxWidth, this.textBoxHeight );
   }
+}
+
+//-- MODIFY THIS: for your own classes
+// NEW: NPCClass
+class NPCRoom extends PNGRoom {
+  preload() {
+    // define class varibles here, load images or anything else
+    this.npc1 = new NPC("Blobbie", 400, 160, 'assets/blob02.png');
+    this.npc1.addSingleInteraction("Hello, I\'m Blobbie! I\'m a static NPC.");
+
+    this.npc2 = new NPC("Sunny Side", 300, 500, 'assets/sun1.png');
+    this.npc2.addStandingAnimation('assets/sun1.png', 'assets/sun3.png');
+    this.npc2.addSingleInteraction("Nice to meet ya! I\'m Sunny Side, an animated NPC.");
+    this.npc2.addSingleInteraction("I'm hungry!");
+    
+    //this.npc2.addSingleInteraction("If you wouldn\'t mind...I could really use a star right now!");
+    //this.npc2.setupQuest("Star", "Thanks! This is just what I needed", "I didn't ask for that!");
+
+    
+    // setup flag, seto false
+    this.hasSetup = false;
+  }
+
+  // call the PNGRoom superclass's draw function to draw the background image
+  // and draw our code adter this
+  draw() {
+    // Idea is to call the npc1.setup() function ONE time, so we use this kind of flag
+    if( this.hasSetup === false ) {
+      // setup NPC 1
+      this.npc1.setup();
+      this.npc1.setPromptLocation(0,-30);
+      
+      // setup NPC 2
+      this.npc2.setup();
+      this.npc2.setPromptLocation(0,-100);
+
+      this.hasSetup = true; 
+    }
+
+    // this calls PNGRoom.draw()
+    super.draw();
+
+    // draw our NPCs
+    drawSprite(this.npc1.sprite);
+    drawSprite(this.npc2.sprite);
+
+    // When you have multiple NPCs, you can add them to an array and have a function 
+    // iterate through it to call this function for each more concisely.
+    this.npc1.displayInteractPrompt(playerAvatar);
+    this.npc2.displayInteractPrompt(playerAvatar);
+  }
+
+  // custom code here to do stuff upon exiting room
+  unload() {
+    // reset NPC interaction to beginning when entering room
+    this.npc2.resetInteraction();
+  }
+
+  // custom code here to do stuff upon entering room
+  load() {
+    // pass to PNGRoom to load image
+    super.load();
+    
+    // Add custom code here for unloading
+  }
+
+  keyPressed() {
+    if(key === ' ') {
+      if(this.npc2.isInteracting(playerAvatar)) {
+        this.npc2.continueInteraction();
+      }
+    }
+  }
+
 }
 
 //-- MODIFY THIS: for your own classes

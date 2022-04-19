@@ -6,7 +6,7 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 4,Calm,PNGRoom,assets/Calm.png,
 5,Sleepy,PNGRoom,assets/Sleepy.png,
 6,Mad,PNGRoom,assets/Mad.png,
-7,Unlucky,PNGRoom,assets/Unlucky.png,
+7,Unlucky,NPCRoom,assets/Unlucky.png,
 8,Anxious,PNGRoom,assets/Anxious.png,
 9,Happy,PNGRoom,assets/Happy.png,
 10,Surprised,PNGRoom,Assets/Surprised.png,
